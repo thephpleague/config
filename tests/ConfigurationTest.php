@@ -17,7 +17,6 @@ use League\Config\Configuration;
 use League\Config\Exception\UnknownOptionException;
 use League\Config\Exception\ValidationException;
 use Nette\Schema\Expect;
-use Nette\Schema\Message;
 use PHPUnit\Framework\TestCase;
 
 final class ConfigurationTest extends TestCase
