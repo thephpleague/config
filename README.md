@@ -146,5 +146,5 @@ This project is used by [league/commonmark][league-commonmark].
 [consolidation/config]: https://github.com/consolidation/config
 [laminas/laminas-config]: https://docs.laminas.dev/laminas-config/
 [contributor guidelines]: https://github.com/thephpleague/config/blob/main/.github/CONTRIBUTING.md
-[license]: https://github.com/thephpleague/commonmark/blob/main/LICENSE.md
+[license]: https://github.com/thephpleague/config/blob/main/LICENSE.md
 [league-commonmark]: https://commonmark.thephpleague.com
