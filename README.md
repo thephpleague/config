@@ -34,7 +34,7 @@ $config = new Configuration([
         'port' => Expect::int()->min(1)->max(65535),
         'ssl' => Expect::bool(),
         'database' => Expect::string()->required(),
-        'username' => Expect::string()->nullable(),
+        'username' => Expect::string()->required(),
         'password' => Expect::string()->nullable(),
     ]),
     'logging' => Expect::structure([
@@ -77,6 +77,10 @@ $config->get('foo.bar');
 $config->exists('foo.bar'); // Returns `false`
 ```
 
+## 📓 Documentation
+
+Full documentation can be found at [config.thephpleague.com][docs].
+
 ## 💭 Philosophy
 
 This library aims to provide a **simple yet opinionated** approach to configuration with the following goals:
@@ -84,6 +88,7 @@ This library aims to provide a **simple yet opinionated** approach to configurat
 - The configuration should operate on **arrays with nested values** which are easily accessible
 - The configuration structure should be **defined with strict schemas** defining the overall structure, allowed types, and allowed values
 - Schemas should be defined using a **simple, fluent interface**
+- You should be able to **add and combine schemas but never modify existing ones**
 - Both the configuration values and the schema should be **defined and managed with PHP code**
 - Schemas should be **immutable**; they should never change once they are set
 - Configuration values should never define or influence the schemas
@@ -136,6 +141,7 @@ This will also test league/config against the latest supported spec.
 
 This project is used by [league/commonmark][league-commonmark].
 
+[docs]: https://config.thephpleague.com/
 [@colinodell]: https://www.twitter.com/colinodell
 [Composer]: https://getcomposer.org/
 [PHP League]: https://thephpleague.com

@@ -1,0 +1,18 @@
+version:
+    '1.0':
+        Getting Started:
+            'Overview': '/1.0/'
+            'Installation': '/1.0/installation/'
+            'Philosophy': '/1.0/philosophy/'
+            'Changelog': '/1.0/changelog/'
+        Usage:
+            'Basic Usage': '/1.0/basic-usage/'
+            'Schemas': '/1.0/schemas/'
+            'Setting User-Provided Values': '/1.0/setting-values/'
+            'Reading Validated Options': '/1.0/reading-values/'
+        Advanced:
+            'Mutability': '/1.0/mutability/'
+            'Lazy Processing': '/1.0/lazy-processing/'
+upgrading:
+    Upgrading Guide:
+        Release Notes: '/releases/'

@@ -7,6 +7,8 @@ assignees: ''
 
 ---
 
+<!-- Have you tried checking the documentation first? https://config.thephpleague.com/ -->
+
 ## Question
 
 <!-- Replace this with your question -->

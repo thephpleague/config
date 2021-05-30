@@ -1,0 +1,24 @@
+title: Config
+tagline: Simple yet expressive configuration library for PHP apps
+description: Simple yet expressive configuration library for PHP apps
+site_title: league/config
+google_analytics_tracking_id: ~
+repository: config
+default_version: '1.0'
+releases:
+  next:
+    '1.0':
+      documentation_link: '/1.0/'
+author:
+    name: Colin O'Dell
+    twitter_account: colinodell
+    website: https://www.colinodell.com
+highlights:
+    description: "<code>league/config</code> helps you define configuration arrays with strict schemas and easy access to values with dot notation."
+    features:
+        - Easy-to-use, expressive API
+        - Supports configuration schemas, allowed types, validation, deprecation, and more
+        - Simplified access to nested configuration options using `parent.child` syntax
+        - Define everything with code - no XML, YAML, or JSON required
+
+composer: "$ composer require league/config"

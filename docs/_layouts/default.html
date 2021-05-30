@@ -1,0 +1,177 @@
+{% assign version = page.url | remove_first: "/" | split: "/" | first %}
+{% assign upgrading = false %}
+{% if version == '' or version == 'releases' %}
+    {% assign version = site.data.project.default_version %}
+    {% assign upgrading = true %}
+{% endif %}
+{% capture version_type %}{{ version|get_version_type }}{% endcapture %}
+{% capture version_home %}/{{ version }}/{% endcapture %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% if page.description %}
+        <meta name="description" content="{{ page.description }}">
+    {% else if site.data.project.description %}
+        <meta name="description" content="{{ site.data.project.description }}">
+    {% endif %}
+    {% if page.url == '/' %}
+        <title>{{ site.data.project.site_title }} - {{ site.data.project.tagline }}</title>
+    {% else %}
+        <title>{{ page.title }} - {{ site.data.project.site_title }}</title>
+    {% endif %}
+    <link rel="icon" type="image/x-icon" href="//theme.thephpleague.com/img/favicon.ico" />
+    <link rel="apple-touch-icon-precomposed" href="//theme.thephpleague.com/img/apple-touch-icon-precomposed.png">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@thephpleague" />
+    <meta name="twitter:creator" content="@colinodell" />
+    <meta property="og:url" content="https://config.thephpleague.com{{ page.url }}" />
+    {% if page.url == '/' %}
+        <meta property="og:title" content="{{ site.data.project.site_title }} - {{ site.data.project.tagline }}" />
+    {% else %}
+        <meta property="og:title" content="{{ page.title }} - {{ site.data.project.site_title }}" />
+    {% endif %}
+    {% if page.description %}
+        <meta property="og:description" content="{{ page.description }}" />
+    {% else %}
+        <meta property="og:description" content="{{ site.data.project.description }}" />
+    {% endif %}
+    <meta property="og:image" content="https://config.thephpleague.com/images/config-social.png" />
+    <link rel="stylesheet" href="//theme.thephpleague.com/css/all.css?{{ site.github.build_revision }}">
+    <link rel="stylesheet" href="/custom.css?{{ site.github.build_revision }}">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/support.css?{{ site.github.build_revision }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.data.project.google_analytics_tracking_id }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{  site.data.project.google_analytics_tracking_id }}');
+    </script>
+</head>
+<body>
+<header>
+    <div class="header-content">
+        <h1 class="title">
+            <a class="logo" href="/">
+            <span class="name">
+                <em>league\</em>config
+            </span>
+            </a>
+        </h1>
+        <div class="search"><input type="search" id="doc-search" style="visibility: hidden" placeholder="search the docs..."></div>
+        <nav class="versions">
+            <h2>{% if upgrading == true %}Notes{% else %}v{{ version }}{% endif %} &#9662;</h2>
+            <ul>
+            {% for v in site.data.menu.version %}
+                <li {% if version == v[0] and upgrading == false %}class="selected"{% endif %}><a href="{{ v[0] | get_version_link : page.url }}">v{{ v[0] }}</a></li>
+            {% endfor %}
+                <li {% if upgrading == true %}class="selected"{% endif %}><a href="/releases/">Notes</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<input type="checkbox" id="menu">
+<label for="menu" onclick>
+    <div class="closed">&#9776;</div>
+    <div class="open">&#10799;</div>
+</label>
+
+<main>
+    <menu>
+        <div class="versions-small">
+        <h2>Versions</h2>
+            <ul>
+        {% for v in site.data.menu.version %}
+                <li {% if version == v[0] and upgrading == false %}class="selected"{% endif %}>
+                    <a href="/{{ v[0] }}/">{{ v[0] }}</a>
+                </li>
+        {% endfor %}
+                <li {% if upgrading == true %}class="selected"{% endif %}><a href="/releases/">Releases Notes</a></li>
+            </ul>
+        </div>
+
+        {% if upgrading == false %}
+            {% for section in site.data.menu.version[version] %}
+            <div class="menu-section">
+                <h2>{{ section[0] }}</h2>
+                <ul>
+                    {% for link in section[1] %}
+                        <li {% if page.url == link[1] %}class="selected"{% endif %}>
+                            <a href="{{ link[1] }}">{{ link[0] }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        {% else %}
+            {% for section in site.data.menu.upgrading %}
+                <h2>{{ section[0] }}</h2>
+                <ul>
+                    {% for link in section[1] %}
+                        <li {% if page.url == link[1] %}class="selected"{% endif %}>
+                            <a href="{{ link[1] }}">{{ link[0] }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+        {% endif %}
+    </menu>
+    <article>
+    {% if version_type == 'next' %}
+        <p class="message-notice">This is the documentation for the upcoming <code>version {{ version }}</code>. This is a work in progress</p>
+    {% endif %}
+
+    {% if version_type == 'previous' %}
+        <p class="message-notice">This is the documentation for <code>version {{ version }}</code>. Please consider upgrading your code to <a href="{{ site.data.project.default_version|get_documentation_link }}">the latest stable version</a></p>
+    {% endif %}
+
+    {% if version_type == 'legacy' %}
+        <p class="message-warning">This is the documentation for the unsupported <code>version {{ version }}</code>. Please consider upgrading your code to <a href="{{ site.data.project.default_version|get_documentation_link }}">the latest stable version</a></p>
+    {% endif %}
+
+        {{ content }}
+    </article>
+
+    <aside class="support-banner-wrapper" x-data="{ show: false }" x-show.transition="show" x-init="h = localStorage.getItem('hideBanner'); (h === null || h < (new Date().getTime())) ? (setTimeout(() => show = true, 500)) : (show = false)">
+        <div class="support-banner">
+            <p class="support-banner-left">
+                <strong>Love this library?</strong>
+                <span class="hidden sm:inline-block lg:hidden">
+                    Show your support!
+                </span>
+
+                <span class="hidden lg:inline-block">
+                    Support development via monthly sponsorship or a one-time donation!
+                </span>
+            </p>
+
+            <div class="support-banner-right">
+                <a href="https://github.com/sponsors/colinodell" class="support-button support-button-sponsor">
+                    <i class="fas fa-heart fa-fw" aria-hidden="true"></i> Sponsor
+                </a>
+
+                <a href="https://www.paypal.me/colinpodell/10.00" class="support-button support-button-donate">
+                    <i class="fas fa-donate fa-fw" aria-hidden="true"></i> Donate
+                </a>
+            </div>
+
+            <button x-on:click="localStorage.setItem('hideBanner', new Date().getTime() + (7*24*60*60*1000)); show = false" class="support-banner-close">
+                <i class="fas fa-times" aria-hidden="true"></i>
+            </button>
+        </div>
+    </aside>
+</main>
+
+<footer>
+    <span>&copy; Copyright <a href="https://www.colinodell.com">Colin O'Dell</a> &amp; <a href="//thephpleague.com">The League of Extraordinary Packages</a>.</span>
+    <span>Site design by <a href="//reinink.ca">Jonathan Reinink</a> and <a href="//nyamsprod.com">Ignace Nyamagana Butera</a>.</span>
+</footer>
+<script src="/custom.js?{{ site.github.build_revision }}"></script>
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+</body>
+</html>

@@ -2,6 +2,7 @@
 /.phpcs-cache
 /.phpunit.result.cache
 /build/
+/docs/_site/
 composer.lock
 composer.phar
 /vendor/
