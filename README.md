@@ -109,7 +109,7 @@ If you need that functionality you should check out other libraries like:
 
 ## 🏷️ Versioning
 
-[SemVer](http://semver.org/) is followed closely. Minor and patch releases should not introduce breaking changes to the codebase; however, they might change the resulting AST or HTML output of parsed Markdown (due to bug fixes, spec changes, etc.)  As a result, you might get slightly different HTML, but any custom code built onto this library should still function correctly.
+[SemVer](http://semver.org/) is followed closely. Minor and patch releases should not introduce breaking changes to the codebase.
 
 Any classes or methods marked `@internal` are not intended for use outside this library and are subject to breaking changes at any time, so please avoid using them.
 
@@ -130,8 +130,6 @@ Contributions to this library are **welcome**! We only ask that you adhere to ou
 ``` bash
 $ composer test
 ```
-
-This will also test league/config against the latest supported spec.
 
 ## 📄 License
 
