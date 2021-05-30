@@ -20,6 +20,8 @@ final class InvalidConfigurationExceptionTest extends TestCase
 {
     /**
      * @dataProvider provideTestCases
+     *
+     * @param mixed $valueGiven
      */
     public function testForConfigOption(string $option, $valueGiven, ?string $description, string $expectedMessage): void
     {

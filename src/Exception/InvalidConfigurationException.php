@@ -13,9 +13,6 @@ declare(strict_types=1);
 
 namespace League\Config\Exception;
 
-/**
- * @psalm-immutable
- */
 class InvalidConfigurationException extends \UnexpectedValueException implements ConfigurationExceptionInterface
 {
     /**
@@ -35,6 +32,8 @@ class InvalidConfigurationException extends \UnexpectedValueException implements
 
     /**
      * @param mixed $value
+     *
+     * @psalm-pure
      */
     private static function getDebugValue($value): string
     {
