@@ -9,8 +9,8 @@ description: Basic usage of the league/config library
 There are three steps to using this library:
 
 - [Defining the configuration schema](/1.0/schemas/)
-    - The overall structure of the configuration
-    - Required options, validation constraints, and default values
+  - The overall structure of the configuration
+  - Required options, validation constraints, and default values
 - [Applying user-provided values](/1.0/setting-values/) against the schema
 - [Reading the validated options](/1.0/reading-values/) and acting on them
 
