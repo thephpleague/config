@@ -15,9 +15,6 @@ namespace League\Config\Exception;
 
 use Nette\Schema\ValidationException as NetteException;
 
-/**
- * @psalm-immutable
- */
 final class ValidationException extends InvalidConfigurationException
 {
     /** @var string[] */
