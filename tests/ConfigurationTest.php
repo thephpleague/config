@@ -30,6 +30,8 @@ final class ConfigurationTest extends TestCase
             $this->fail('An exception should be thrown since no options have been defined yet');
         } catch (\Throwable $t) {
             $this->assertInstanceOf(UnknownOptionException::class, $t);
+            \assert($t instanceof UnknownOptionException);
+            $this->assertSame('foo', $t->getPath());
         }
 
         $config->addSchema('foo', Expect::string()->default('bar'));
@@ -59,7 +61,7 @@ final class ConfigurationTest extends TestCase
             'nested' => Expect::structure([
                 'lucky_number' => Expect::int()->default(42),
             ]),
-            'array' => Expect::arrayOf('mixed'),
+            'array' => Expect::arrayOf('mixed')->deprecated(),
         ]);
 
         $config->merge([
@@ -143,6 +145,9 @@ final class ConfigurationTest extends TestCase
         $this->assertFalse($config->exists('arr.0'));
         $this->assertFalse($config->exists('nested/bar'));
         $this->assertFalse($config->exists('nested/foo/bar'));
+
+        // Re-test 'str' to check the cache
+        $this->assertTrue($config->exists('str'));
     }
 
     public function testSet(): void
@@ -258,10 +263,12 @@ final class ConfigurationTest extends TestCase
 
         $this->assertSame('bar', $config->get('foo'));
         $this->assertSame('bar', $reader->get('foo'));
+        $this->assertTrue($reader->exists('foo'));
 
         $config->set('foo', 'baz');
 
         $this->assertSame('baz', $config->get('foo'));
         $this->assertSame('baz', $reader->get('foo'));
+        $this->assertTrue($reader->exists('foo'));
     }
 }
