@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the league/commonmark package.
+ * This file is part of the league/config package.
  *
  * (c) Colin O'Dell <colinodell@gmail.com>
  *
