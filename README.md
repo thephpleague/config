@@ -6,7 +6,6 @@
 [![Build Status](https://img.shields.io/github/workflow/status/thephpleague/config/Tests/main.svg?style=flat-square)](https://github.com/thephpleague/config/actions?query=workflow%3ATests+branch%3Amain)
 [![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/thephpleague/config.svg?style=flat-square)](https://scrutinizer-ci.com/g/thephpleague/config/code-structure)
 [![Quality Score](https://img.shields.io/scrutinizer/g/thephpleague/config.svg?style=flat-square)](https://scrutinizer-ci.com/g/thephpleague/config)
-
 [![Sponsor development of this project](https://img.shields.io/badge/sponsor%20this%20package-%E2%9D%A4-ff69b4.svg?style=flat-square)](https://www.colinodell.com/sponsor)
 
 **league/config** helps you define nested configuration arrays with strict schemas and access configuration values with dot notation.  It was created by [Colin O'Dell][@colinodell].
