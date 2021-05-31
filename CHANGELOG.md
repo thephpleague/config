@@ -4,6 +4,9 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com/) princi
 
 ## [Unreleased][unreleased]
 
+## [1.0.0]
+
 Initial release! 🎉
 
-[unreleased]: https://github.com/thephpleague/config/compare/1.0.0...main
+[unreleased]: https://github.com/thephpleague/config/compare/v1.0.0...main
+[1.0.0]: https://github.com/thephpleague/config/releases/tag/v1.0.0
