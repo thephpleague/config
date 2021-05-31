@@ -29,7 +29,7 @@
         "phpunit/phpunit": "^8.5 || ^9.2",
         "scrutinizer/ocular": "^1.5",
         "unleashedtech/php-coding-standard": "^3.0",
-        "vimeo/psalm": "^4.4.1"
+        "vimeo/psalm": "^4.7.3"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

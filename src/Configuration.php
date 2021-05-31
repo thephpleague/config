@@ -32,13 +32,25 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
      */
     private $userConfig;
 
-    /** @var array<string, Schema> */
+    /**
+     * @var array<string, Schema>
+     *
+     * @psalm-allow-private-mutation
+     */
     private $configSchemas = [];
 
-    /** @var Data|null */
+    /**
+     * @var Data|null
+     *
+     * @psalm-allow-private-mutation
+     */
     private $finalConfig;
 
-    /** @var array<string, mixed> */
+    /**
+     * @var array<string, mixed>
+     *
+     * @psalm-allow-private-mutation
+     */
     private $cache = [];
 
     /**
@@ -61,6 +73,8 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
 
     /**
      * Registers a new configuration schema at the given top-level key
+     *
+     * @psalm-allow-private-mutation
      */
     public function addSchema(string $key, Schema $schema): void
     {
@@ -71,6 +85,8 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
 
     /**
      * {@inheritdoc}
+     *
+     * @psalm-allow-private-mutation
      */
     public function merge(array $config = []): void
     {
@@ -81,6 +97,8 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
 
     /**
      * {@inheritdoc}
+     *
+     * @psalm-allow-private-mutation
      */
     public function set(string $key, $value): void
     {
@@ -91,6 +109,8 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
 
     /**
      * {@inheritDoc}
+     *
+     * @psalm-allow-private-mutation
      */
     public function get(string $key)
     {
@@ -107,6 +127,11 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @psalm-allow-private-mutation
+     */
     public function exists(string $key): bool
     {
         if ($this->finalConfig === null) {
@@ -118,11 +143,17 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
         return $this->finalConfig->has($key);
     }
 
+    /**
+     * @psalm-mutation-free
+     */
     public function reader(): ConfigurationInterface
     {
         return $this->reader;
     }
 
+    /**
+     * @psalm-allow-private-mutation
+     */
     private function invalidate(): void
     {
         $this->cache       = [];
@@ -131,6 +162,8 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
 
     /**
      * Applies the schema against the configuration to return the final configuration
+     *
+     * @psalm-allow-private-mutation
      */
     private function build(): Data
     {
@@ -153,6 +186,8 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
      * @param mixed $data
      *
      * @return mixed
+     *
+     * @psalm-pure
      */
     private static function convertStdClassesToArrays($data)
     {
@@ -161,8 +196,8 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
         }
 
         if (\is_array($data)) {
-            foreach ($data as &$v) {
-                $v = self::convertStdClassesToArrays($v);
+            foreach ($data as $k => $v) {
+                $data[$k] = self::convertStdClassesToArrays($v);
             }
         }
 
