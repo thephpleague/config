@@ -44,7 +44,7 @@ $config = new Configuration([
     ]),
 ]);
 
-// Set the values, either all ot once with `merge()`:
+// Set the values, either all at once with `merge()`:
 $config->merge([
     'database' => [
         'driver' => 'mysql',
