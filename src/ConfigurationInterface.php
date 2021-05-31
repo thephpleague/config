@@ -24,6 +24,8 @@ interface ConfigurationInterface
     /**
      * @param string $key Configuration option path/key
      *
+     * @psalm-param non-empty-string $key
+     *
      * @return mixed
      *
      * @throws ValidationException if the schema failed to validate the given input
@@ -34,9 +36,11 @@ interface ConfigurationInterface
     /**
      * @param string $key Configuration option path/key
      *
+     * @psalm-param non-empty-string $key
+     *
      * @return bool Whether the given option exists
      *
-     * @throw ValidationException if the schema failed to validate the given input
+     * @throws ValidationException if the schema failed to validate the given input
      */
     public function exists(string $key): bool;
 }

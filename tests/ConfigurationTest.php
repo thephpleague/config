@@ -148,6 +148,9 @@ final class ConfigurationTest extends TestCase
 
         // Re-test 'str' to check the cache
         $this->assertTrue($config->exists('str'));
+
+        // Test with an empty string
+        $this->assertFalse($config->exists(''));
     }
 
     public function testSet(): void
@@ -213,6 +216,17 @@ final class ConfigurationTest extends TestCase
 
         $config->set('bar', 3);
         $config->get('foo');
+    }
+
+    public function testSetNestedWhenOptionNotNested(): void
+    {
+        $this->expectException(UnknownOptionException::class);
+        $this->expectExceptionMessageMatches('/cannot be indexed into/');
+
+        $config = new Configuration(['foo' => Expect::int(42)]);
+
+        $config->set('foo', 3);
+        $config->set('foo.bar', 42);
     }
 
     public function testMerge(): void

@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace League\Config;
 
 use Dflydev\DotAccessData\Data;
+use Dflydev\DotAccessData\Exception\DataException;
 use Dflydev\DotAccessData\Exception\InvalidPathException;
 use Dflydev\DotAccessData\Exception\MissingPathException;
 use League\Config\Exception\UnknownOptionException;
@@ -104,7 +105,11 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
     {
         $this->invalidate();
 
-        $this->userConfig->set($key, $value);
+        try {
+            $this->userConfig->set($key, $value);
+        } catch (DataException $ex) {
+            throw new UnknownOptionException($ex->getMessage(), $key, (int) $ex->getCode(), $ex);
+        }
     }
 
     /**
@@ -140,7 +145,11 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
             return true;
         }
 
-        return $this->finalConfig->has($key);
+        try {
+            return $this->finalConfig->has($key);
+        } catch (InvalidPathException $ex) {
+            return false;
+        }
     }
 
     /**
@@ -162,6 +171,8 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
 
     /**
      * Applies the schema against the configuration to return the final configuration
+     *
+     * @throws ValidationException
      *
      * @psalm-allow-private-mutation
      */
