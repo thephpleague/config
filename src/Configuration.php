@@ -85,7 +85,7 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @psalm-allow-private-mutation
      */
@@ -97,7 +97,7 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @psalm-allow-private-mutation
      */
