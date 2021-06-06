@@ -115,7 +115,7 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
     /**
      * {@inheritDoc}
      *
-     * @psalm-allow-private-mutation
+     * @psalm-external-mutation-free
      */
     public function get(string $key)
     {
@@ -135,7 +135,7 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
     /**
      * {@inheritDoc}
      *
-     * @psalm-allow-private-mutation
+     * @psalm-external-mutation-free
      */
     public function exists(string $key): bool
     {
@@ -161,7 +161,7 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
     }
 
     /**
-     * @psalm-allow-private-mutation
+     * @psalm-external-mutation-free
      */
     private function invalidate(): void
     {

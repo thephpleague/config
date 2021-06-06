@@ -15,9 +15,6 @@ namespace League\Config\Exception;
 
 use Throwable;
 
-/**
- * @psalm-immutable
- */
 final class UnknownOptionException extends \InvalidArgumentException implements ConfigurationExceptionInterface
 {
     /** @var string */
