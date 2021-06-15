@@ -6,7 +6,7 @@ google_analytics_tracking_id: ~
 repository: config
 default_version: '1.0'
 releases:
-  next:
+  current:
     '1.0':
       documentation_link: '/1.0/'
 author:
