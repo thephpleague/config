@@ -90,6 +90,11 @@ header .versions h2 {
     margin-bottom:.4em;
     padding:.5em .3em;
     cursor: pointer;
+    transition: 0.3s;
+}
+
+header .versions h2:hover {
+    background: #0a64bf;
 }
 
 header .versions ul {
@@ -188,6 +193,10 @@ main article p {
     max-width: 840px;
 }
 
+main article a {
+    color:#1672ce;
+}
+
 main article p code,
 main article li code,
 main article div > code {
@@ -211,6 +220,10 @@ main article p a img {
     margin:0;
     padding:0;
     display:inline;
+}
+
+main article hr {
+    border: 1px solid #d9e0e6;
 }
 
 footer {
