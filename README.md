@@ -12,7 +12,7 @@
 
 ## 📦 Installation
 
-This project requires PHP 7.2 or higher.  To install it via [Composer] simply run:
+This project requires PHP 7.4 or higher.  To install it via [Composer] simply run:
 
 ``` bash
 $ composer require league/config
@@ -117,7 +117,7 @@ Any classes or methods marked `@internal` are not intended for use outside this 
 
 When a new **minor** version (e.g. `1.0` -> `1.1`) is released, the previous one (`1.0`) will continue to receive security and critical bug fixes for *at least* 3 months.
 
-When a new **major** version is released (e.g. `1.0` -> `2.0`), the previous one (`1.0`) will receive critical bug fixes for *at least* 3 months and security updates for 6 months after that new release comes out.
+When a new **major** version is released (e.g. `1.1` -> `2.0`), the previous one (`1.1`) will receive critical bug fixes for *at least* 3 months and security updates for 6 months after that new release comes out.
 
 (This policy may change in the future and exceptions may be made on a case-by-case basis.)
 
