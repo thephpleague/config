@@ -25,18 +25,14 @@
         "nette/schema": "^1.2"
     },
     "require-dev": {
-        "phpstan/phpstan": "^0.12.88",
-        "phpunit/phpunit": "^8.5 || ^9.2",
-        "scrutinizer/ocular": "^1.5",
-        "unleashedtech/php-coding-standard": "^3.0",
+        "phpstan/phpstan": "^0.12.90",
+        "phpunit/phpunit": "^9.5.5",
+        "scrutinizer/ocular": "^1.8.1",
+        "unleashedtech/php-coding-standard": "^3.1",
         "vimeo/psalm": "^4.7.3"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "conflict": {
-        "scrutinizer/ocular": "1.7.*",
-        "vimeo/psalm": "3.15.0"
-    },
     "autoload": {
         "psr-4": {
             "League\\Config\\": "src"
