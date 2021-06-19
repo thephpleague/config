@@ -4,12 +4,12 @@ description: Simple yet expressive configuration library for PHP apps
 site_title: league/config
 google_analytics_tracking_id: ~
 repository: config
-default_version: '1.0'
+default_version: '1.1'
 releases:
-  next:
+  current:
     '1.1':
       documentation_link: '/1.1/'
-  current:
+  previous:
     '1.0':
       documentation_link: '/1.0/'
 author:

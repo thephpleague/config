@@ -4,6 +4,8 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com/) princi
 
 ## [Unreleased][unreleased]
 
+## [1.1.0] - 2021-06-19
+
 ### Changed
 
 - Bumped the minimum PHP version to 7.4+
@@ -19,6 +21,7 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com/) princi
 
 Initial release! 🎉
 
-[unreleased]: https://github.com/thephpleague/config/compare/v1.0.1...main
+[unreleased]: https://github.com/thephpleague/config/compare/v1.1.0...main
+[1.1.0]: https://github.com/thephpleague/config/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/thephpleague/config/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/thephpleague/config/releases/tag/v1.0.0
