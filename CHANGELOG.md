@@ -4,6 +4,10 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com/) princi
 
 ## [Unreleased][unreleased]
 
+### Changed
+
+- Bumped the minimum version of nette/schema to 1.2.0
+
 ## [1.0.1] - 2021-05-31
 
 ### Fixed
