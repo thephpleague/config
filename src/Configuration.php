@@ -26,40 +26,28 @@ use Nette\Schema\ValidationException as NetteValidationException;
 
 final class Configuration implements ConfigurationBuilderInterface, ConfigurationInterface
 {
-    /**
-     * @var Data
-     *
-     * @psalm-readonly
-     */
-    private $userConfig;
+    /** @psalm-readonly */
+    private Data $userConfig;
 
     /**
      * @var array<string, Schema>
      *
      * @psalm-allow-private-mutation
      */
-    private $configSchemas = [];
+    private array $configSchemas = [];
 
-    /**
-     * @var Data|null
-     *
-     * @psalm-allow-private-mutation
-     */
-    private $finalConfig;
+    /** @psalm-allow-private-mutation */
+    private ?Data $finalConfig = null;
 
     /**
      * @var array<string, mixed>
      *
      * @psalm-allow-private-mutation
      */
-    private $cache = [];
+    private array $cache = [];
 
-    /**
-     * @var ConfigurationInterface
-     *
-     * @psalm-readonly
-     */
-    private $reader;
+    /** @psalm-readonly */
+    private ConfigurationInterface $reader;
 
     /**
      * @param array<string, Schema> $baseSchemas

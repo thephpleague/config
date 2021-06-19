@@ -14,7 +14,7 @@ jobs:
 
             - uses: shivammathur/setup-php@v2
               with:
-                  php-version: 7.2
+                  php-version: 7.4
                   extensions: curl
                   coverage: none
                   tools: composer:v2, cs2pr
@@ -28,12 +28,11 @@ jobs:
         runs-on: ubuntu-latest
         strategy:
             matrix:
-                php: ['7.2', '7.3', '7.4']
+                php: ['7.4', '8.0']
                 coverage: [true]
                 composer-flags: ['']
                 include:
-                    - php: '8.0'
-                    - php: '7.2'
+                    - php: '7.4'
                       coverage: false
                       composer-flags: '--prefer-lowest'
 
@@ -50,10 +49,6 @@ jobs:
                   tools: composer:v2
 
             - run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
-
-            - name: "Use PHPUnit 9.3+ on PHP 8"
-              run: composer require --no-update --dev phpunit/phpunit:^9.3
-              if: "matrix.php == '8.0'"
 
             - run: composer update --no-progress ${{ matrix.composer-flags }}
 
@@ -76,7 +71,7 @@ jobs:
 
             - uses: shivammathur/setup-php@v2
               with:
-                  php-version: 7.2
+                  php-version: 7.4
                   extensions: curl
                   coverage: none
                   tools: composer:v2
@@ -94,7 +89,7 @@ jobs:
 
             - uses: shivammathur/setup-php@v2
               with:
-                  php-version: 7.2
+                  php-version: 7.4
                   extensions: curl
                   coverage: none
                   tools: composer:v2

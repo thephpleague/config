@@ -20,7 +20,7 @@
         "source": "https://github.com/thephpleague/config"
     },
     "require": {
-        "php": "^7.2.5 || ^8.0",
+        "php": "^7.4 || ^8.0",
         "dflydev/dot-access-data": "^3.0",
         "nette/schema": "^1.2"
     },

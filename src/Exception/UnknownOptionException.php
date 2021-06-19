@@ -17,8 +17,7 @@ use Throwable;
 
 final class UnknownOptionException extends \InvalidArgumentException implements ConfigurationExceptionInterface
 {
-    /** @var string */
-    private $path;
+    private string $path;
 
     public function __construct(string $message, string $path, int $code = 0, ?Throwable $previous = null)
     {
