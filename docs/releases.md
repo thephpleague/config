@@ -3,8 +3,6 @@ layout: default
 title: Release Notes
 redirect_from:
     - /changelog/
-    - /upgrading/
-    - /upgrading/changelog/
 ---
 
 # Release Notes
