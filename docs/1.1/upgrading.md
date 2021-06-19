@@ -14,4 +14,3 @@ The minimum PHP version has changed to 7.4+ or 8.0+.
 ## Minimum nette/schema version
 
 The minimum version of the `nette/schema` library has been bumped to 1.2.0+.
-
