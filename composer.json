@@ -21,7 +21,7 @@
     },
     "require": {
         "php": "^7.4 || ^8.0",
-        "dflydev/dot-access-data": "^3.0",
+        "dflydev/dot-access-data": "^3.0.1",
         "nette/schema": "^1.2"
     },
     "require-dev": {
