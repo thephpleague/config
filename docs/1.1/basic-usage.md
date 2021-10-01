@@ -19,8 +19,6 @@ There are three steps to using this library:
 Simply define your configuration schema, set the values, and then fetch them where needed:
 
 ```php
-<?php
-
 use League\Config\Configuration;
 use Nette\Schema\Expect;
 
