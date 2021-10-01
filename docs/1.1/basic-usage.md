@@ -19,8 +19,6 @@ There are three steps to using this library:
 Simply define your configuration schema, set the values, and then fetch them where needed:
 
 ```php
-<?php
-
 use League\Config\Configuration;
 use Nette\Schema\Expect;
 
@@ -30,12 +28,14 @@ $config = new Configuration([
         'driver' => Expect::anyOf('mysql', 'postgresql', 'sqlite')->required(),
         'host' => Expect::string()->default('localhost'),
         'port' => Expect::int()->min(1)->max(65535),
+        'ssl' => Expect::bool(),
         'database' => Expect::string()->required(),
         'username' => Expect::string()->required(),
         'password' => Expect::string()->nullable(),
     ]),
     'logging' => Expect::structure([
         'enabled' => Expect::bool()->default($_ENV['DEBUG'] == true),
+        'file' => Expect::string()->deprecated("use logging.path instead"),
         'path' => Expect::string()->assert(function ($path) { return \is_writeable($path); })->required(),
     ]),
 ]);
