@@ -127,8 +127,8 @@ Contributions to this library are **welcome**! We only ask that you adhere to ou
 
 ## 🧪 Testing
 
-``` bash
-$ composer test
+```bash
+composer test
 ```
 
 ## 📄 License
