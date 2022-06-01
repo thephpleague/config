@@ -65,11 +65,13 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
      *
      * @psalm-allow-private-mutation
      */
-    public function addSchema(string $key, Schema $schema): void
+    public function addSchema(string $key, Schema $schema, bool $overwrite = true): void
     {
         $this->invalidate();
 
-        $this->configSchemas[$key] = $schema;
+        if ($overwrite || !isset($this->configSchemas[$key])) {
+            $this->configSchemas[$key] = $schema;
+        }
     }
 
     /**
