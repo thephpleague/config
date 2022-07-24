@@ -170,6 +170,7 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
             $schema    = Expect::structure($this->configSchemas);
             $processor = new Processor();
             $processed = $processor->process($schema, $this->userConfig->export());
+            \assert($processed instanceof \stdClass);
 
             $this->raiseAnyDeprecationNotices($processor->getWarnings());
 
@@ -182,9 +183,13 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
     /**
      * Recursively converts stdClass instances to arrays
      *
-     * @param mixed $data
+     * @phpstan-template T
+     *
+     * @param T $data
      *
      * @return mixed
+     *
+     * @phpstan-return ($data is \stdClass ? array<string, mixed> : T)
      *
      * @psalm-pure
      */
