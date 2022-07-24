@@ -6,6 +6,6 @@ parameters:
     check:
       missingCheckedExceptionInThrows: true
       tooWideThrowType: true
-  implicitThrows: false
+    implicitThrows: false
 includes:
   - vendor/phpstan/phpstan/conf/bleedingEdge.neon
