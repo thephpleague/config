@@ -39,9 +39,13 @@ final class ConfigurationTest extends TestCase
 
         $config->addSchema('a', Expect::string()->required());
 
+        // Even though 'a' requires data, reading 'foo' should still work
+        $config->get('foo');
+
+        // But reading 'a' should fail
         try {
-            $config->get('foo');
-            $this->fail('A validation exception should be thrown since the full schema doesn\'t pass validation');
+            $config->get('a');
+            $this->fail('A validation exception should be thrown since the "a" schema doesn\'t pass validation');
         } catch (\Throwable $t) {
             $this->assertInstanceOf(ValidationException::class, $t);
         }
@@ -116,9 +120,8 @@ final class ConfigurationTest extends TestCase
             $this->fail('A validation exception should have been thrown');
         } catch (\Throwable $t) {
             $this->assertInstanceOf(ValidationException::class, $t);
-            $this->assertCount(2, $t->getMessages());
-            $this->assertStringContainsString("item 'foo' is missing", $t->getMessages()[0]);
-            $this->assertStringContainsString("item 'bar' expects to be int", $t->getMessages()[1]);
+            $this->assertCount(1, $t->getMessages());
+            $this->assertStringContainsString("item 'bar' expects to be int", $t->getMessages()[0]);
         }
     }
 
@@ -207,15 +210,12 @@ final class ConfigurationTest extends TestCase
         $config->get('foo');
     }
 
-    public function testSetUndefinedKey(): void
+    public function testSetUndefinedKeyDoesNotThrowException(): void
     {
-        $this->expectException(ValidationException::class);
-        $this->expectExceptionMessageMatches("/Unexpected item 'bar'/");
-
         $config = new Configuration(['foo' => Expect::int(42)]);
 
         $config->set('bar', 3);
-        $config->get('foo');
+        $this->assertSame(42, $config->get('foo'));
     }
 
     public function testSetNestedWhenOptionNotNested(): void
