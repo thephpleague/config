@@ -193,8 +193,6 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
             $this->finalConfig->import((array) self::convertStdClassesToArrays($processed));
         } catch (NetteValidationException $ex) {
             throw new ValidationException($ex);
-        } catch (DataException $ex) {
-            // Do nothing
         }
     }
 
