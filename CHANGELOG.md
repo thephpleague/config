@@ -4,6 +4,11 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com/) princi
 
 ## [Unreleased][unreleased]
 
+### Changed
+
+- Values can now be set prior to the corresponding schema being registered.
+- `exists()` and `get()` now only trigger validation for the relevant schema, not the entire config at once.
+
 ## [1.1.1] - 2021-08-14
 
 ### Changed
