@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: github/super-linter/slim@v4.10.0
+      - uses: github/super-linter/slim@v4.10.1
         env:
           DEFAULT_BRANCH: latest
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
