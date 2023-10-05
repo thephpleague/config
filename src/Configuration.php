@@ -117,8 +117,12 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
             $this->build(self::getTopLevelKey($key));
 
             return $this->cache[$key] = $this->finalConfig->get($key);
-        } catch (InvalidPathException | MissingPathException $ex) {
-            throw new UnknownOptionException($ex->getMessage(), $key, (int) $ex->getCode(), $ex);
+        } catch (\Exception $ex) {
+            if ($ex instanceof InvalidPathException || $ex instanceof MissingPathException) {
+                throw new UnknownOptionException($ex->getMessage(), $key, (int) $ex->getCode(), $ex);
+            }
+
+            throw $ex;
         }
     }
 
@@ -186,6 +190,7 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
             $schema    = $this->configSchemas[$topLevelKey];
             $processor = new Processor();
 
+            /** @var \StdClass $processed */
             $processed = $processor->process(Expect::structure([$topLevelKey => $schema]), $userData);
 
             $this->raiseAnyDeprecationNotices($processor->getWarnings());
