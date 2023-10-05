@@ -190,7 +190,7 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
 
             $this->raiseAnyDeprecationNotices($processor->getWarnings());
 
-            $this->finalConfig->import((array) self::convertStdClassesToArrays($processed));
+            $this->finalConfig->import(self::convertStdClassesToArrays($processed));
         } catch (NetteValidationException $ex) {
             throw new ValidationException($ex);
         }
