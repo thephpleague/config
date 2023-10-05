@@ -17,7 +17,6 @@ use Dflydev\DotAccessData\Data;
 use Dflydev\DotAccessData\DataInterface;
 use Dflydev\DotAccessData\Exception\DataException;
 use Dflydev\DotAccessData\Exception\InvalidPathException;
-use Dflydev\DotAccessData\Exception\MissingPathException;
 use League\Config\Exception\UnknownOptionException;
 use League\Config\Exception\ValidationException;
 use Nette\Schema\Expect;
@@ -117,12 +116,8 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
             $this->build(self::getTopLevelKey($key));
 
             return $this->cache[$key] = $this->finalConfig->get($key);
-        } catch (\Exception $ex) {
-            if ($ex instanceof InvalidPathException || $ex instanceof MissingPathException) {
-                throw new UnknownOptionException($ex->getMessage(), $key, (int) $ex->getCode(), $ex);
-            }
-
-            throw $ex;
+        } catch (InvalidPathException $ex) {
+            throw new UnknownOptionException($ex->getMessage(), $key, (int) $ex->getCode(), $ex);
         }
     }
 
