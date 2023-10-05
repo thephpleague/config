@@ -185,8 +185,8 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
             $schema    = $this->configSchemas[$topLevelKey];
             $processor = new Processor();
 
-            /** @var \StdClass $processed */
             $processed = $processor->process(Expect::structure([$topLevelKey => $schema]), $userData);
+            \assert($processed instanceof \stdClass);
 
             $this->raiseAnyDeprecationNotices($processor->getWarnings());
 
