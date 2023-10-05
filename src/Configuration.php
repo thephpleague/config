@@ -17,7 +17,6 @@ use Dflydev\DotAccessData\Data;
 use Dflydev\DotAccessData\DataInterface;
 use Dflydev\DotAccessData\Exception\DataException;
 use Dflydev\DotAccessData\Exception\InvalidPathException;
-use Dflydev\DotAccessData\Exception\MissingPathException;
 use League\Config\Exception\UnknownOptionException;
 use League\Config\Exception\ValidationException;
 use Nette\Schema\Expect;
@@ -117,7 +116,7 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
             $this->build(self::getTopLevelKey($key));
 
             return $this->cache[$key] = $this->finalConfig->get($key);
-        } catch (InvalidPathException | MissingPathException $ex) {
+        } catch (InvalidPathException $ex) {
             throw new UnknownOptionException($ex->getMessage(), $key, (int) $ex->getCode(), $ex);
         }
     }
@@ -187,10 +186,11 @@ final class Configuration implements ConfigurationBuilderInterface, Configuratio
             $processor = new Processor();
 
             $processed = $processor->process(Expect::structure([$topLevelKey => $schema]), $userData);
+            \assert($processed instanceof \stdClass);
 
             $this->raiseAnyDeprecationNotices($processor->getWarnings());
 
-            $this->finalConfig->import((array) self::convertStdClassesToArrays($processed));
+            $this->finalConfig->import(self::convertStdClassesToArrays($processed));
         } catch (NetteValidationException $ex) {
             throw new ValidationException($ex);
         }
