@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html class="homepage" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Simple yet expressive configuration library for PHP apps">
+    <meta name="docsearch:version" content="1.1">
+    <meta name="theme-color" content="#19232D">
+    <title>league/config - Simple yet expressive configuration library for PHP apps</title>
+    <link rel="icon" type="image/x-icon" href="//theme.thephpleague.com/img/favicon.ico" />
+    <link rel="apple-touch-icon-precomposed" href="//theme.thephpleague.com/img/apple-touch-icon-precomposed.png">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@thephpleague" />
+    <meta name="twitter:creator" content="@colinodell" />
+    <meta property="og:url" content="https://config.thephpleague.com/" />
+    <meta property="og:title" content="league/config - Simple yet expressive configuration library for PHP apps" />
+    <meta property="og:description" content="Simple yet expressive configuration library for PHP apps" />
+    <link rel="stylesheet" href="//theme.thephpleague.com/css/all.css?">
+    <link rel="stylesheet" href="/homepage.css?">
+    <link rel="stylesheet" href="/global.css?">
+    <link rel="stylesheet" href="/support.css?">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
+    <script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '');
+    </script>
+</head>
+<body>
+
+<header>
+    <div class="inner-content">
+      <h1>Config</h1>
+      <h2>Simple yet expressive configuration library for PHP apps</h2>
+      <p class="composer"><span>$ composer require league/config</span></p>
+      <ul class="hot-links clearfix">
+        <li class="source"><a href="//github.com/thephpleague/config">source code</a></li>
+        <li class="documentation"><a href="/1.1/">documentation</a></li>
+      </ul>
+      <p class="footnote"></p>
+    </div>
+</header>
+
+<main>
+  <div class="badge-list">
+    <a href="https://twitter.com/colinodell"><img src="https://img.shields.io/badge/author-@colinodell-blue.svg?style=flat-square" alt="Author"></a>
+    <a href="https://github.com/thephpleague/config/releases"><img src="https://img.shields.io/packagist/v/league/config.svg?style=flat-square" alt="Latest Version"></a>
+    <a href="https://packagist.org/packages/league/config"><img src="https://img.shields.io/packagist/dt/league/config.svg?style=flat-square" alt="Total Downloads"></a>
+    <a href="https://github.com/thephpleague/config/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-BSD--3-orange.svg?style=flat-square" alt="Software License"></a>
+    <a href="https://github.com/thephpleague/config/actions?query=workflow%3ATests+branch%3Amain"><img src="https://img.shields.io/github/workflow/status/thephpleague/config/Tests/main.svg?style=flat-square" alt="Build Status"></a>
+    <a href="https://scrutinizer-ci.com/g/thephpleague/config/code-structure"><img src="https://img.shields.io/scrutinizer/coverage/g/thephpleague/config.svg?style=flat-square" alt="Coverage Status"></a>
+    <a href="https://scrutinizer-ci.com/g/thephpleague/config"><img src="https://img.shields.io/scrutinizer/g/thephpleague/config.svg?style=flat-square" alt="Quality Score"></a>
+  </div>
+  <div class="highlights">
+    <div class="inner-content">
+      <div class="column one">
+        <h1>Highlights</h1>
+        <div class="description">
+        <p><code>league/config</code> helps you define configuration arrays with strict schemas and easy access to values with dot notation.</p>
+        </div>
+      </div>
+      <div class="column two">
+        <ol>
+          
+          <li><p>Easy-to-use, expressive API</p></li>
+          
+          <li><p>Supports configuration schemas, allowed types, validation, deprecation, and more</p></li>
+          
+          <li><p>Simplified access to nested configuration options using `parent.child` syntax</p></li>
+          
+          <li><p>Define everything with code - no XML, YAML, or JSON required</p></li>
+          
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="inner-content">
+<!-- markdownlint-disable first-line-heading -->
+
+<!-- markdownlint-restore -->
+
+<h1 id="features">Features</h1>
+
+<h2 id="expressive-fluent-api">Expressive, Fluent API</h2>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">League\Config\Configuration</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Nette\Schema\Expect</span><span class="p">;</span>
+
+<span class="nv">$config</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Configuration</span><span class="p">([</span>
+    <span class="s1">'database'</span> <span class="o">=&gt;</span> <span class="nc">Expect</span><span class="o">::</span><span class="nf">structure</span><span class="p">([</span>
+        <span class="s1">'driver'</span> <span class="o">=&gt;</span> <span class="nc">Expect</span><span class="o">::</span><span class="nf">anyOf</span><span class="p">(</span><span class="s1">'mysql'</span><span class="p">,</span> <span class="s1">'postgresql'</span><span class="p">,</span> <span class="s1">'sqlite'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">required</span><span class="p">(),</span>
+        <span class="s1">'host'</span> <span class="o">=&gt;</span> <span class="nc">Expect</span><span class="o">::</span><span class="nf">string</span><span class="p">()</span><span class="o">-&gt;</span><span class="k">default</span><span class="p">(</span><span class="s1">'localhost'</span><span class="p">),</span>
+        <span class="s1">'port'</span> <span class="o">=&gt;</span> <span class="nc">Expect</span><span class="o">::</span><span class="nf">int</span><span class="p">()</span><span class="o">-&gt;</span><span class="nb">min</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">max</span><span class="p">(</span><span class="mi">65535</span><span class="p">),</span>
+        <span class="s1">'database'</span> <span class="o">=&gt;</span> <span class="nc">Expect</span><span class="o">::</span><span class="nf">string</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">required</span><span class="p">(),</span>
+        <span class="s1">'username'</span> <span class="o">=&gt;</span> <span class="nc">Expect</span><span class="o">::</span><span class="nf">string</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">required</span><span class="p">(),</span>
+        <span class="s1">'password'</span> <span class="o">=&gt;</span> <span class="nc">Expect</span><span class="o">::</span><span class="nf">string</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">nullable</span><span class="p">(),</span>
+    <span class="p">]),</span>
+<span class="p">]);</span>
+</code></pre></div></div>
+
+<h2 id="easily-access-nested-values">Easily Access Nested Values</h2>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">echo</span> <span class="nv">$config</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">(</span><span class="s1">'database.driver'</span><span class="p">);</span>
+
+<span class="c1">// or using slashes, if you prefer that syntax:</span>
+<span class="k">echo</span> <span class="nv">$config</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">(</span><span class="s1">'database/driver'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="set-options-individually-or-together">Set Options Individually Or Together</h2>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">League\Config\Configuration</span><span class="p">;</span>
+
+<span class="nv">$config</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Configuration</span><span class="p">([</span><span class="cm">/*...*/</span><span class="p">]);</span>
+
+<span class="nv">$config</span><span class="o">-&gt;</span><span class="nf">merge</span><span class="p">([</span>
+    <span class="s1">'database'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">'driver'</span> <span class="o">=&gt;</span> <span class="s1">'mysql'</span><span class="p">,</span>
+        <span class="s1">'port'</span> <span class="o">=&gt;</span> <span class="mi">3306</span><span class="p">,</span>
+        <span class="s1">'host'</span> <span class="o">=&gt;</span> <span class="s1">'localhost'</span><span class="p">,</span>
+        <span class="s1">'database'</span> <span class="o">=&gt;</span> <span class="s1">'myapp'</span><span class="p">,</span>
+        <span class="s1">'username'</span> <span class="o">=&gt;</span> <span class="s1">'myappdotcom'</span><span class="p">,</span>
+        <span class="s1">'password'</span> <span class="o">=&gt;</span> <span class="s1">'hunter2'</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">]);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nv">$_ENV</span><span class="p">[</span><span class="s1">'APP_ENV'</span><span class="p">]</span> <span class="o">===</span> <span class="s1">'prod'</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$config</span><span class="o">-&gt;</span><span class="nf">set</span><span class="p">(</span><span class="s1">'payment_gateway.test_mode'</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="combine-multiple-schemas-into-one">Combine Multiple Schemas Into One</h2>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">League\Config\Configuration</span><span class="p">;</span>
+
+<span class="nv">$config</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Configuration</span><span class="p">();</span>
+<span class="nv">$config</span><span class="o">-&gt;</span><span class="nf">addSchema</span><span class="p">(</span><span class="s1">'database'</span><span class="p">,</span> <span class="no">DB</span><span class="o">::</span><span class="nf">getConfigSchema</span><span class="p">());</span>
+<span class="nv">$config</span><span class="o">-&gt;</span><span class="nf">addSchema</span><span class="p">(</span><span class="s1">'logging'</span><span class="p">,</span> <span class="nc">Logger</span><span class="o">::</span><span class="nf">getConfigSchema</span><span class="p">());</span>
+<span class="nv">$config</span><span class="o">-&gt;</span><span class="nf">addSchema</span><span class="p">(</span><span class="s1">'mailer'</span><span class="p">,</span> <span class="nc">Mailer</span><span class="o">::</span><span class="nf">getConfigSchema</span><span class="p">());</span>
+</code></pre></div></div>
+
+    </div>
+  </div>
+
+  <div class="questions">
+    <div class="inner-content">
+      <h1>Questions?</h1>
+        <p><a href="https://github.com/thephpleague/config">Config</a> was created by <a href="https://www.colinodell.com">Colin O'Dell</a>. Find him on Twitter at <a href="https://twitter.com/colinodell">@colinodell</a>.</p>
+    </div>
+  </div>
+
+    <aside class="support-banner-wrapper" x-data="{ show: false }" x-show.transition="show" x-init="h = localStorage.getItem('hideBanner'); (h === null || h < (new Date().getTime())) ? (setTimeout(() => show = true, 500)) : (show = false)">
+        <div class="support-banner">
+            <p class="support-banner-left">
+                <strong>Love this library?</strong>
+                <span class="hidden sm:inline-block lg:hidden">
+                    Show your support!
+                </span>
+
+                <span class="hidden lg:inline-block">
+                    Support development via monthly sponsorship or a one-time donation!
+                </span>
+            </p>
+
+            <div class="support-banner-right">
+                <a href="https://github.com/sponsors/colinodell" class="btn btn-pink btn-block">
+                    <i class="fas fa-heart fa-fw" aria-hidden="true"></i> Sponsor
+                </a>
+
+                <a href="https://www.paypal.me/colinpodell/10.00" class="btn btn-green btn-block">
+                    <i class="fas fa-donate fa-fw" aria-hidden="true"></i> Donate
+                </a>
+            </div>
+
+            <button x-on:click="localStorage.setItem('hideBanner', new Date().getTime() + (7*24*60*60*1000)); show = false" class="support-banner-close">
+                <i class="fas fa-times" aria-hidden="true"></i>
+            </button>
+        </div>
+    </aside>
+</main>
+
+<footer>
+    <span>&copy; Copyright <a href="https://www.colinodell.com">Colin O'Dell</a> &amp; <a href="//thephpleague.com">The League of Extraordinary Packages</a>.</span>
+    <span>Site design by <a href="//reinink.ca">Jonathan Reinink</a> and <a href="//nyamsprod.com">Ignace Nyamagana Butera</a>.</span>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+</body>
+</html>
