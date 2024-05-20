@@ -21,6 +21,30 @@ use PHPUnit\Framework\TestCase;
 
 final class ConfigurationTest extends TestCase
 {
+    public function testNotOverrideSchema(): void
+    {
+        $config = new Configuration([
+            'a' => Expect::string()->default('foo')
+        ]);
+
+        // the previous schema will not be modified
+        $config->addSchema('a', Expect::int()->default(4), false);
+
+        $this->assertSame('foo', $config->get('a'));
+    }
+
+    public function testOverrideSchema(): void
+    {
+        $config = new Configuration([
+            'a' => Expect::string()->default('foo')
+        ]);
+
+        // the previous schema will be modified
+        $config->addSchema('a', Expect::int()->default(42));
+
+        $this->assertSame(42, $config->get('a'));
+    }
+
     public function testAddSchema(): void
     {
         $config = new Configuration();
