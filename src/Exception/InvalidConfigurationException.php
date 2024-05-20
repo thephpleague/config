@@ -41,6 +41,7 @@ class InvalidConfigurationException extends \UnexpectedValueException implements
             return \get_class($value);
         }
 
+        // @phpstan-ignore possiblyImpure.functionCall
         return \print_r($value, true);
     }
 }
