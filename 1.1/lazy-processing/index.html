@@ -1,0 +1,264 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+        <meta name="description" content="Lazy processing defers the processing and validation until you try to read config values">
+    
+    <meta name="docsearch:version" content="1.1">
+    
+        <title>Lazy Processing - league/config</title>
+    
+    <link rel="icon" type="image/x-icon" href="//theme.thephpleague.com/img/favicon.ico" />
+    <link rel="apple-touch-icon-precomposed" href="//theme.thephpleague.com/img/apple-touch-icon-precomposed.png">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@thephpleague" />
+    <meta name="twitter:creator" content="@colinodell" />
+    <meta property="og:url" content="https://config.thephpleague.com/1.1/lazy-processing/" />
+    
+        <meta property="og:title" content="Lazy Processing - league/config" />
+    
+    
+        <meta property="og:description" content="Lazy processing defers the processing and validation until you try to read config values" />
+    
+    <meta property="og:image" content="https://config.thephpleague.com/images/config-social.png" />
+    <link rel="stylesheet" href="//theme.thephpleague.com/css/all.css?">
+    <link rel="stylesheet" href="/custom.css?">
+    <link rel="stylesheet" href="/global.css?">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
+    <link rel="stylesheet" href="/support.css?">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
+    <script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '');
+    </script>
+</head>
+<body>
+<header>
+    <div class="header-content">
+        <h1 class="title">
+            <a class="logo" href="/">
+            <span class="name">
+                <em>league\</em>config
+            </span>
+            </a>
+        </h1>
+        <div class="search"><input type="search" id="doc-search" placeholder="search the docs..."></div>
+        <nav class="versions">
+            <h2>v1.1 &#9662;</h2>
+            <ul>
+            
+                <li class="selected"><a href="/1.1/lazy-processing/">v1.1</a></li>
+            
+                <li ><a href="/1.0/lazy-processing/">v1.0</a></li>
+            
+                <li ><a href="/releases/">Notes</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<input type="checkbox" id="menu">
+<label for="menu" onclick>
+    <div class="closed">&#9776;</div>
+    <div class="open">&#10799;</div>
+</label>
+
+<main>
+    <menu>
+        <div class="versions-small">
+        <h2>Versions</h2>
+            <ul>
+        
+                <li class="selected">
+                    <a href="/1.1/">1.1</a>
+                </li>
+        
+                <li >
+                    <a href="/1.0/">1.0</a>
+                </li>
+        
+                <li ><a href="/releases/">Releases Notes</a></li>
+            </ul>
+        </div>
+
+        
+            
+            <div class="menu-section">
+                <h2>Getting Started</h2>
+                <ul>
+                    
+                        <li >
+                            <a href="/1.1/">Overview</a>
+                        </li>
+                    
+                        <li >
+                            <a href="/1.1/installation/">Installation</a>
+                        </li>
+                    
+                        <li >
+                            <a href="/1.1/philosophy/">Philosophy</a>
+                        </li>
+                    
+                        <li >
+                            <a href="/1.1/changelog/">Changelog</a>
+                        </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="menu-section">
+                <h2>Usage</h2>
+                <ul>
+                    
+                        <li >
+                            <a href="/1.1/basic-usage/">Basic Usage</a>
+                        </li>
+                    
+                        <li >
+                            <a href="/1.1/schemas/">Schemas</a>
+                        </li>
+                    
+                        <li >
+                            <a href="/1.1/setting-values/">Setting User-Provided Values</a>
+                        </li>
+                    
+                        <li >
+                            <a href="/1.1/reading-values/">Reading Validated Options</a>
+                        </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="menu-section">
+                <h2>Advanced</h2>
+                <ul>
+                    
+                        <li >
+                            <a href="/1.1/mutability/">Mutability</a>
+                        </li>
+                    
+                        <li class="selected">
+                            <a href="/1.1/lazy-processing/">Lazy Processing</a>
+                        </li>
+                    
+                </ul>
+            </div>
+            
+        
+    </menu>
+    <article>
+    
+
+    
+
+    
+
+        <h1 id="lazy-processing">Lazy Processing</h1>
+
+<p>We delay the processing and validation of the <a href="/1.1/setting-values/">user-provided values</a> until the first time you attempt to <a href="/1.1/reading-values/">read or check a value</a>.  This provides flexibility as to when the schemas and user-provided values are set.</p>
+
+<p>For example, you might need to set the values from different sources. Thanks to lazy processing we won’t actually validate the schema until you try to access a value.  Because of this, you might not know there’s a validation issue until you attempt to read a value:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">League\Config\Configuration</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Nette\Schema\Expect</span><span class="p">;</span>
+
+<span class="nv">$config</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Configuration</span><span class="p">([</span>
+    <span class="s1">'debug_mode'</span> <span class="o">=&gt;</span> <span class="nc">Expect</span><span class="o">::</span><span class="nf">bool</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">required</span><span class="p">(),</span>
+    <span class="s1">'database'</span> <span class="o">=&gt;</span> <span class="nc">Expect</span><span class="o">::</span><span class="nf">structure</span><span class="p">([</span>
+        <span class="s1">'driver'</span> <span class="o">=&gt;</span> <span class="nc">Expect</span><span class="o">::</span><span class="nf">anyOf</span><span class="p">(</span><span class="s1">'mysql'</span><span class="p">,</span> <span class="s1">'postgresql'</span><span class="p">,</span> <span class="s1">'sqlite'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">required</span><span class="p">(),</span>
+        <span class="s1">'host'</span> <span class="o">=&gt;</span> <span class="nc">Expect</span><span class="o">::</span><span class="nf">string</span><span class="p">()</span><span class="o">-&gt;</span><span class="k">default</span><span class="p">(</span><span class="s1">'localhost'</span><span class="p">),</span>
+        <span class="s1">'port'</span> <span class="o">=&gt;</span> <span class="nc">Expect</span><span class="o">::</span><span class="nf">int</span><span class="p">()</span><span class="o">-&gt;</span><span class="nb">min</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">max</span><span class="p">(</span><span class="mi">65535</span><span class="p">),</span>
+        <span class="s1">'ssl'</span> <span class="o">=&gt;</span> <span class="nc">Expect</span><span class="o">::</span><span class="nf">bool</span><span class="p">(),</span>
+        <span class="s1">'database'</span> <span class="o">=&gt;</span> <span class="nc">Expect</span><span class="o">::</span><span class="nf">string</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">required</span><span class="p">(),</span>
+        <span class="s1">'username'</span> <span class="o">=&gt;</span> <span class="nc">Expect</span><span class="o">::</span><span class="nf">string</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">required</span><span class="p">(),</span>
+        <span class="s1">'password'</span> <span class="o">=&gt;</span> <span class="nc">Expect</span><span class="o">::</span><span class="nf">string</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">nullable</span><span class="p">(),</span>
+    <span class="p">]),</span>
+    <span class="s1">'logging'</span> <span class="o">=&gt;</span> <span class="nc">Expect</span><span class="o">::</span><span class="nf">structure</span><span class="p">([</span>
+        <span class="s1">'enabled'</span> <span class="o">=&gt;</span> <span class="nc">Expect</span><span class="o">::</span><span class="nf">bool</span><span class="p">()</span><span class="o">-&gt;</span><span class="k">default</span><span class="p">(</span><span class="nv">$_ENV</span><span class="p">[</span><span class="s1">'DEBUG'</span><span class="p">]</span> <span class="o">==</span> <span class="kc">true</span><span class="p">),</span>
+        <span class="s1">'file'</span> <span class="o">=&gt;</span> <span class="nc">Expect</span><span class="o">::</span><span class="nf">string</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">deprecated</span><span class="p">(</span><span class="s2">"use logging.path instead"</span><span class="p">),</span>
+        <span class="s1">'path'</span> <span class="o">=&gt;</span> <span class="nc">Expect</span><span class="o">::</span><span class="nf">string</span><span class="p">()</span><span class="o">-&gt;</span><span class="nb">assert</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nv">$path</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="err">\</span><span class="nb">is_writeable</span><span class="p">(</span><span class="nv">$path</span><span class="p">);</span> <span class="p">})</span><span class="o">-&gt;</span><span class="nf">required</span><span class="p">(),</span>
+    <span class="p">]),</span>
+<span class="p">]);</span>
+
+<span class="c1">// Load configuration from a file.</span>
+<span class="c1">// For the sake of this example, let's assume the user didn't set 'debug_mode'.</span>
+<span class="c1">// Even though this is a required option, we don't validate the schema immediately so you can add it later.</span>
+<span class="nv">$config</span><span class="o">-&gt;</span><span class="nf">merge</span><span class="p">(</span><span class="nb">json_decode</span><span class="p">(</span><span class="nb">file_get_contents</span><span class="p">(</span><span class="s1">'database.json'</span><span class="p">),</span> <span class="kc">true</span><span class="p">));</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nv">$_ENV</span><span class="p">[</span><span class="s1">'APP_ENV'</span><span class="p">]</span> <span class="o">===</span> <span class="s1">'prod'</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$config</span><span class="o">-&gt;</span><span class="nf">set</span><span class="p">(</span><span class="s1">'debug_mode'</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+    <span class="nv">$config</span><span class="o">-&gt;</span><span class="nf">merge</span><span class="p">(</span><span class="nb">json_decode</span><span class="p">(</span><span class="nb">file_get_contents</span><span class="p">(</span><span class="s1">'config.prod.json'</span><span class="p">),</span> <span class="kc">true</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="c1">// This call below will throw an exception if "debug_mode" wasn't set at all</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$config</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">(</span><span class="s1">'debug_mode'</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+
+        <hr>
+
+        <p>
+            <a class="btn btn-sm btn-black" href="https://github.com/thephpleague/config/edit/1.1/docs/1.1/lazy-processing.md" title="Edit this page on GitHub" target="_blank" rel="noopener"><i class="fas fa-edit"></i> Edit this page</a>
+        </p>
+    </article>
+
+    <aside class="support-banner-wrapper" x-data="{ show: false }" x-show.transition="show" x-init="h = localStorage.getItem('hideBanner'); (h === null || h < (new Date().getTime())) ? (setTimeout(() => show = true, 500)) : (show = false)">
+        <div class="support-banner">
+            <p class="support-banner-left">
+                <strong>Love this library?</strong>
+                <span class="hidden sm:inline-block lg:hidden">
+                    Show your support!
+                </span>
+
+                <span class="hidden lg:inline-block">
+                    Support development via monthly sponsorship or a one-time donation!
+                </span>
+            </p>
+
+            <div class="support-banner-right">
+                <a href="https://github.com/sponsors/colinodell" class="btn btn-pink btn-block">
+                    <i class="fas fa-heart fa-fw" aria-hidden="true"></i> Sponsor
+                </a>
+
+                <a href="https://www.paypal.me/colinpodell/10.00" class="btn btn-green btn-block">
+                    <i class="fas fa-donate fa-fw" aria-hidden="true"></i> Donate
+                </a>
+            </div>
+
+            <button x-on:click="localStorage.setItem('hideBanner', new Date().getTime() + (7*24*60*60*1000)); show = false" class="support-banner-close">
+                <i class="fas fa-times" aria-hidden="true"></i>
+            </button>
+        </div>
+    </aside>
+</main>
+
+<footer>
+    <span>&copy; Copyright <a href="https://www.colinodell.com">Colin O'Dell</a> &amp; <a href="//thephpleague.com">The League of Extraordinary Packages</a>.</span>
+    <span>Site design by <a href="//reinink.ca">Jonathan Reinink</a> and <a href="//nyamsprod.com">Ignace Nyamagana Butera</a>.</span>
+</footer>
+<script src="/custom.js?"></script>
+<script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+<script> docsearch({
+    apiKey: '8f03aec598536d377970de1d57a674a3',
+    indexName: 'thephpleague',
+    inputSelector: '#doc-search',
+    algoliaOptions: { 'facetFilters': ["version:1.1"] },
+    debug: false // Set debug to true if you want to inspect the dropdown
+});
+</script>
+</body>
+</html>
